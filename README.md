@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# 📅 Room Booking App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Room Booking App** – это одностраничное веб-приложение (SPA) для бронирования переговорных комнат. Оно позволяет просматривать доступные комнаты, создавать, редактировать и удалять бронирования, а также синхронизировать данные между вкладками браузера в реальном времени.
 
-Currently, two official plugins are available:
+## 🚀 Деплой
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[![GitHub Pages](https://img.shields.io/badge/Room_Booking_App-222222?style=for-the-badge&logo=github-pages&logoColor=white)](https://mvavilin.github.io/room-booking-app/)
 
-## React Compiler
+## ▶️ Запуск приложения
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Клонируйте этот репозиторий:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+git clone https://github.com/mvavilin/room-booking-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Перейдите в папку `room-booking-app` и установите все зависимости:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
 ```
+npm install
+```
+
+- После установки зависимостей, запустите приложение в режиме разработки:
+
+```
+npm run dev
+```
+
+- После этого вы сможете получить к нему доступ по адресу `localhost:5173`.
+
+## 🛠️ Технологии
+
+| Категория          | Технологии                                                                                                                                                                                                                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Язык**           | ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)                                                                                                                                                                                                      |
+| **Фронтенд**       | ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white) |
+| **Хранилище**      | ![localStorage](https://img.shields.io/badge/localStorage-FFB13B?style=for-the-badge&logo=javascript&logoColor=white)                                                                                                                                                                                                  |
+| **Работа с датой** | ![date-fns](https://img.shields.io/badge/date--fns-770C56?style=for-the-badge&logo=date-fns&logoColor=white)                                                                                                                                                                                                           |
+| **Качество кода**  | ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black) ![Husky](https://img.shields.io/badge/Husky-000000?style=for-the-badge&logo=git&logoColor=white)     |
+
+## 👥 Разработчик
+
+<div align="center">
+
+|        <img src="https://avatars.githubusercontent.com/mvavilin?s=120&v=4" width="100" height="100" style="border-radius: 50%;">        |
+| :-------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                           **Mikhail Vavilin**                                                           |
+| [![GitHub](https://img.shields.io/badge/-mvavilin-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mvavilin) |
+
+</div>
