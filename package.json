@@ -8,9 +8,20 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\" --log-level silent",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\""
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write . --log-level silent",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
+    "deploy": "npm run build && npx gh-pages -d dist -m \"build: публикация собранного проекта\""
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run format",
+      "npm run lint:fix"
+    ],
+    "*.{json,md}": [
+      "npm run format"
+    ]
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.1",
@@ -30,7 +41,10 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "eslint-plugin-unicorn": "^69.0.0",
+    "gh-pages": "^6.3.0",
     "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.9.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.61.0",
