@@ -12,8 +12,9 @@
   "pluginOptions": {},
   "attributes": {
     "bookingId": {
-      "type": "uid",
-      "required": true
+      "type": "integer",
+      "required": true,
+      "unique": true
     },
     "roomId": {
       "type": "relation",

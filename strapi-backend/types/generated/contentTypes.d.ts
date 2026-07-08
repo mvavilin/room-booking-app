@@ -451,7 +451,9 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    bookingId: Schema.Attribute.UID & Schema.Attribute.Required;
+    bookingId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     bookingStatus: Schema.Attribute.Enumeration<['confirmed', 'canceled']> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -493,7 +495,9 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::room.room'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    roomId: Schema.Attribute.UID & Schema.Attribute.Required;
+    roomId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
