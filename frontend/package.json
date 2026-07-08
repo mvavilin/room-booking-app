@@ -11,7 +11,6 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write . --log-level silent",
     "format:check": "prettier --check .",
-    "prepare": "husky",
     "deploy": "npm run build && npx gh-pages -d dist -m \"build: публикация собранного проекта\""
   },
   "lint-staged": {
@@ -45,7 +44,6 @@
     "eslint-plugin-unicorn": "^69.0.0",
     "gh-pages": "^6.3.0",
     "globals": "^17.6.0",
-    "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.9.0",
     "typescript": "~6.0.2",

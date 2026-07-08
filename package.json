@@ -1,0 +1,24 @@
+{
+  "name": "room-booking-app",
+  "version": "1.0.0",
+  "description": "**Room Booking App** – это одностраничное веб-приложение (SPA) для бронирования переговорных комнат. Оно позволяет просматривать доступные комнаты, создавать, редактировать и удалять бронирования, а также синхронизировать данные между вкладками браузера в реальном времени.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvavilin/room-booking-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvavilin/room-booking-app/issues"
+  },
+  "homepage": "https://github.com/mvavilin/room-booking-app#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
