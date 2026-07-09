@@ -1,1 +1,1 @@
-export type { Booking } from '@entities/booking/model/';
+export type { Booking } from '@entities/booking/model/types';
