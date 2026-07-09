@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
 
-export const TypographyP = ({ children }: PropsWithChildren) => {
+export function TypographyP({ children }: PropsWithChildren): React.JSX.Element {
   return (
     <p
       className="
@@ -11,4 +11,4 @@ export const TypographyP = ({ children }: PropsWithChildren) => {
       {children}
     </p>
   );
-};
+}

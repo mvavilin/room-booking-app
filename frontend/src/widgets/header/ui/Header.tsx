@@ -2,7 +2,7 @@ import { Container } from '@shared/ui/container';
 import { CalendarCheck } from 'lucide-react';
 import { TypographyH1 } from '@shared/ui/typography';
 
-export function Header() {
+export function Header(): React.JSX.Element {
   return (
     <header className="bg-background-inverse text-foreground-inverse">
       <Container>

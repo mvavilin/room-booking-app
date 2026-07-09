@@ -3,7 +3,7 @@ import type { RoomDto, CreateRoomDto, UpdateRoomDto, GetRoomsParameters } from '
 import { roomEndpoints } from '@entities/room';
 
 export const roomApi = {
-  async getRooms(parameters?: GetRoomsParameters) {
+  async getRooms(parameters?: GetRoomsParameters): Promise<CollectionResponse<RoomDto>> {
     const { data } = await api.get<CollectionResponse<RoomDto>>(roomEndpoints.rooms, {
       params: parameters,
     });
@@ -11,13 +11,13 @@ export const roomApi = {
     return data;
   },
 
-  async getRoom(documentId: string) {
+  async getRoom(documentId: string): Promise<SingleResponse<RoomDto>> {
     const { data } = await api.get<SingleResponse<RoomDto>>(roomEndpoints.room(documentId));
 
     return data;
   },
 
-  async createRoom(room: CreateRoomDto) {
+  async createRoom(room: CreateRoomDto): Promise<SingleResponse<RoomDto>> {
     const { data } = await api.post<SingleResponse<RoomDto>>(roomEndpoints.rooms, {
       data: room,
     });
@@ -25,7 +25,7 @@ export const roomApi = {
     return data;
   },
 
-  async updateRoom(documentId: string, room: UpdateRoomDto) {
+  async updateRoom(documentId: string, room: UpdateRoomDto): Promise<SingleResponse<RoomDto>> {
     const { data } = await api.put<SingleResponse<RoomDto>>(roomEndpoints.room(documentId), {
       data: room,
     });
@@ -33,7 +33,7 @@ export const roomApi = {
     return data;
   },
 
-  async deleteRoom(documentId: string) {
+  async deleteRoom(documentId: string): Promise<void> {
     await api.delete(roomEndpoints.room(documentId));
   },
 };

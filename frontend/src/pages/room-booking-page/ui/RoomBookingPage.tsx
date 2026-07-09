@@ -2,7 +2,7 @@ import { Header } from '@widgets/header';
 import { Container } from '@shared/ui/container';
 import { TypographyH2, TypographyP } from '@shared/ui/typography';
 
-export function RoomBookingPage() {
+export function RoomBookingPage(): React.JSX.Element {
   return (
     <>
       <Header />

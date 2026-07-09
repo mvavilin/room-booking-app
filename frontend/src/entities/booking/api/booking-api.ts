@@ -8,7 +8,7 @@ import type {
 import { bookingEndpoints } from '@entities/booking';
 
 export const bookingApi = {
-  async getBookings(parameters?: GetBookingsParameters) {
+  async getBookings(parameters?: GetBookingsParameters): Promise<CollectionResponse<BookingDto>> {
     const { data } = await api.get<CollectionResponse<BookingDto>>(bookingEndpoints.bookings, {
       params: parameters,
     });
@@ -16,7 +16,7 @@ export const bookingApi = {
     return data;
   },
 
-  async getBooking(documentId: string) {
+  async getBooking(documentId: string): Promise<SingleResponse<BookingDto>> {
     const { data } = await api.get<SingleResponse<BookingDto>>(
       bookingEndpoints.booking(documentId)
     );
@@ -24,7 +24,7 @@ export const bookingApi = {
     return data;
   },
 
-  async createBooking(booking: CreateBookingDto) {
+  async createBooking(booking: CreateBookingDto): Promise<SingleResponse<BookingDto>> {
     const { data } = await api.post<SingleResponse<BookingDto>>(bookingEndpoints.bookings, {
       data: booking,
     });
@@ -32,7 +32,10 @@ export const bookingApi = {
     return data;
   },
 
-  async updateBooking(documentId: string, booking: UpdateBookingDto) {
+  async updateBooking(
+    documentId: string,
+    booking: UpdateBookingDto
+  ): Promise<SingleResponse<BookingDto>> {
     const { data } = await api.put<SingleResponse<BookingDto>>(
       bookingEndpoints.booking(documentId),
       {
@@ -43,7 +46,7 @@ export const bookingApi = {
     return data;
   },
 
-  async deleteBooking(documentId: string) {
+  async deleteBooking(documentId: string): Promise<void> {
     await api.delete(bookingEndpoints.booking(documentId));
   },
 };

@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
 
-export function Container({ children }: PropsWithChildren) {
+export function Container({ children }: PropsWithChildren): React.JSX.Element {
   return (
     <div
       className="

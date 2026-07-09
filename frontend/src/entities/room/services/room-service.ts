@@ -1,13 +1,17 @@
-import { handleApiError } from '@shared/api';
+import { handleApiError, type Pagination } from '@shared/api';
 import {
   roomApi,
   type CreateRoomDto,
   type GetRoomsParameters,
+  type RoomDto,
   type UpdateRoomDto,
 } from '@entities/room';
 
 export const roomService = {
-  async getRooms(parameters?: GetRoomsParameters) {
+  async getRooms(parameters?: GetRoomsParameters): Promise<{
+    rooms: RoomDto[];
+    pagination: Pagination;
+  }> {
     try {
       const response = await roomApi.getRooms(parameters);
 
@@ -20,7 +24,7 @@ export const roomService = {
     }
   },
 
-  async getRoom(documentId: string) {
+  async getRoom(documentId: string): Promise<RoomDto> {
     try {
       const response = await roomApi.getRoom(documentId);
 
@@ -30,7 +34,7 @@ export const roomService = {
     }
   },
 
-  async createRoom(room: CreateRoomDto) {
+  async createRoom(room: CreateRoomDto): Promise<RoomDto> {
     try {
       const response = await roomApi.createRoom(room);
 
@@ -40,7 +44,7 @@ export const roomService = {
     }
   },
 
-  async updateRoom(documentId: string, room: UpdateRoomDto) {
+  async updateRoom(documentId: string, room: UpdateRoomDto): Promise<RoomDto> {
     try {
       const response = await roomApi.updateRoom(documentId, room);
 
@@ -50,7 +54,7 @@ export const roomService = {
     }
   },
 
-  async deleteRoom(documentId: string) {
+  async deleteRoom(documentId: string): Promise<void> {
     try {
       await roomApi.deleteRoom(documentId);
     } catch (error) {
