@@ -18,3 +18,9 @@ export interface SingleResponse<T> {
 
   meta: Record<string, never>;
 }
+
+export type PaginatedResult<T> = {
+  data: T[];
+
+  pagination: Pagination;
+};

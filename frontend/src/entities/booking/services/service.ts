@@ -1,4 +1,4 @@
-import { handleApiError, type Pagination } from '@shared/api';
+import { handleApiError, type PaginatedResult } from '@shared/api';
 import {
   bookingApi,
   type BookingDto,
@@ -8,15 +8,12 @@ import {
 } from '@entities/booking';
 
 export const bookingService = {
-  async getBookings(parameters?: GetBookingsParameters): Promise<{
-    bookings: BookingDto[];
-    pagination: Pagination;
-  }> {
+  async getBookings(parameters?: GetBookingsParameters): Promise<PaginatedResult<BookingDto>> {
     try {
       const response = await bookingApi.getBookings(parameters);
 
       return {
-        bookings: response.data,
+        data: response.data,
         pagination: response.meta.pagination,
       };
     } catch (error) {

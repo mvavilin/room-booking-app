@@ -8,6 +8,6 @@
     "jsx": "react-jsx",
     "moduleResolution": "bundler"
   },
-  "include": ["src"],
+  "include": ["src", "src/entities/room/types/model.ts"],
   "exclude": ["node_modules", "dist"]
 }
