@@ -4,39 +4,19 @@ export function handleApiError(error: unknown): never {
   if (error instanceof AxiosError) {
     const status = error.response?.status;
 
-    switch (status) {
-      case 400: {
-        throw new Error('Некорректные данные запроса');
-      }
+    const messages: Record<number, string> = {
+      400: '400 Некорректный запрос',
+      401: '401 Вы не авторизованы',
+      403: '403 Недостаточно прав',
+      404: '404 Ресурс не найден',
+      409: '409 Конфликт данных',
+      422: '422 Ошибка валидации',
+      500: '500 Внутренняя ошибка сервера',
+    };
 
-      case 401: {
-        throw new Error('Необходимо авторизоваться');
-      }
-
-      case 403: {
-        throw new Error('Недостаточно прав для выполнения операции');
-      }
-
-      case 404: {
-        throw new Error('Комната не найдена');
-      }
-
-      case 409: {
-        throw new Error('Такая комната уже существует');
-      }
-
-      case 422: {
-        throw new Error('Ошибка валидации данных');
-      }
-
-      case 500: {
-        throw new Error('Ошибка сервера, попробуйте позже');
-      }
-
-      default: {
-        throw new Error(error.response?.data?.error?.message ?? error.message ?? 'Ошибка запроса');
-      }
-    }
+    throw new Error(
+      messages[status ?? 0] ?? error.response?.data?.error?.message ?? 'Произошла ошибка'
+    );
   }
 
   throw error;

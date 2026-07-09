@@ -32,6 +32,7 @@ export default defineConfig([
       },
     },
     rules: {
+      // '@typescript-eslint/explicit-function-return-type': 'error',
       'prettier/prettier': 'error',
       // 'max-lines-per-function': [
       //   'error',
