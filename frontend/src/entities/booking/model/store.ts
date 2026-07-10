@@ -1,57 +1,54 @@
 import { create } from 'zustand';
-
-import { bookingService, type BookingStore, type GetBookingsParameters } from '@entities/booking';
+import { bookingService, type BookingStore, type UpdateBookingDto } from '@entities/booking';
+import { endOfDay, startOfDay } from 'date-fns';
 
 export const useBookingStore = create<BookingStore>((set) => ({
-  bookings: [],
-  pagination: undefined,
-  currentBooking: undefined,
+  bookingsByRoomId: {},
 
-  bookingVersion: 0,
+  async loadRoomBookings(roomId): Promise<void> {
+    const todayStart = startOfDay(new Date());
+    const todayEnd = endOfDay(new Date());
 
-  async getBookings(parameters?: GetBookingsParameters): Promise<void> {
-    const { data, pagination } = await bookingService.getBookings(parameters);
-
-    set({
-      bookings: data,
-      pagination,
+    const result = await bookingService.getBookings({
+      filters: {
+        roomId: {
+          $eq: roomId,
+        },
+        start: {
+          $gte: todayStart,
+          $lte: todayEnd,
+        },
+      },
     });
+
+    set((state) => ({
+      bookingsByRoomId: {
+        ...state.bookingsByRoomId,
+
+        [roomId]: result.data,
+      },
+    }));
   },
 
-  async getBooking(documentId: string): Promise<void> {
-    const booking = await bookingService.getBooking(documentId);
+  async updateBooking(id: string, data: UpdateBookingDto): Promise<void> {
+    const updated = await bookingService.updateBooking(id, data);
 
-    set({
-      currentBooking: booking,
+    set((state) => {
+      const newState = {
+        ...state.bookingsByRoomId,
+      };
+
+      for (const roomId of Object.keys(newState)) {
+        const bookings = newState[roomId];
+
+        if (!bookings) continue;
+
+        newState[roomId] = bookings.map((item) => (item.documentId === id ? updated : item));
+      }
+
+      return {
+        bookingsByRoomId: newState,
+      };
     });
-  },
-
-  async createBooking(booking): Promise<void> {
-    const createdBooking = await bookingService.createBooking(booking);
-
-    set((state) => ({
-      bookings: [...state.bookings, createdBooking],
-      bookingVersion: state.bookingVersion + 1,
-    }));
-  },
-
-  async updateBooking(documentId: string, booking): Promise<void> {
-    const updatedBooking = await bookingService.updateBooking(documentId, booking);
-
-    set((state) => ({
-      bookings: state.bookings.map((item) =>
-        item.documentId === documentId ? updatedBooking : item
-      ),
-      bookingVersion: state.bookingVersion + 1,
-    }));
-  },
-
-  async deleteBooking(documentId: string): Promise<void> {
-    await bookingService.deleteBooking(documentId);
-
-    set((state) => ({
-      bookings: state.bookings.filter((item) => item.documentId !== documentId),
-      bookingVersion: state.bookingVersion + 1,
-    }));
   },
 }));

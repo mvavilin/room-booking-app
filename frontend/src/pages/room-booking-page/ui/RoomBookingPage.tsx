@@ -18,7 +18,7 @@ export function RoomBookingPage(): React.JSX.Element {
             для решения ваших задач.
           </TypographyP>
 
-          <div className="py-8">
+          <div className="py-8 flex justify-center">
             <BookingTimeline />
           </div>
         </Container>

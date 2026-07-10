@@ -5,7 +5,7 @@ export function TypographyP({ children }: PropsWithChildren): React.JSX.Element 
     <p
       className="
         leading-7
-        [&:not(:first-child)]:mt-6
+        not-first:mt-6
       "
     >
       {children}

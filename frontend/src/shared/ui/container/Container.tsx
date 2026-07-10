@@ -11,7 +11,7 @@ export function Container({ children }: PropsWithChildren): React.JSX.Element {
         sm:px-6
         lg:px-8
 
-        max-w-screen-xl
+        max-w-7xl
       "
     >
       {children}

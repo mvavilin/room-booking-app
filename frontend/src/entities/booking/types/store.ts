@@ -1,25 +1,9 @@
-import type {
-  BookingDto,
-  CreateBookingDto,
-  GetBookingsParameters,
-  UpdateBookingDto,
-} from '@entities/booking';
-import type { Pagination } from '@shared/api';
+import type { BookingDto, UpdateBookingDto } from '@entities/booking';
 
 export interface BookingStore {
-  bookings: BookingDto[];
-  pagination: Pagination | undefined;
-  currentBooking: BookingDto | undefined;
+  bookingsByRoomId: Record<string, BookingDto[]>;
 
-  bookingVersion: number;
+  loadRoomBookings(roomId: number): Promise<void>;
 
-  getBookings: (parameters?: GetBookingsParameters) => Promise<void>;
-
-  getBooking: (documentId: string) => Promise<void>;
-
-  createBooking: (booking: CreateBookingDto) => Promise<void>;
-
-  updateBooking: (documentId: string, booking: UpdateBookingDto) => Promise<void>;
-
-  deleteBooking: (documentId: string) => Promise<void>;
+  updateBooking(id: string, data: UpdateBookingDto): Promise<void>;
 }

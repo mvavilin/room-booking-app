@@ -1,45 +1,34 @@
-import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { isWithinInterval, parse } from 'date-fns';
-import { type BookingDto, bookingService, useBookingStore } from '@entities/booking';
 import type { RoomDto } from '@entities/room';
+import { selectBookingsByRoom, useBookingStore } from '@entities/booking';
 import { BOOKING_SLOTS } from '@shared/config';
 import { TableCell, TableRow } from '@shared/ui';
 
-// TODO: Refactor
+import { BookingSlotCell } from '@widgets/booking-timeline';
+import { findBookingByTime } from '@widgets/booking-timeline';
 
-export function BookingRow({ room }: { room: RoomDto }): React.JSX.Element {
-  const [bookings, setBookings] = useState<BookingDto[]>([]);
+interface Properties {
+  room: RoomDto;
+}
 
-  const bookingVersion = useBookingStore((state) => state.bookingVersion);
+export function BookingRow({ room }: Properties): React.JSX.Element {
+  const bookings = useBookingStore(selectBookingsByRoom(room.id));
 
-  const loadBookings = useCallback(async (): Promise<void> => {
-    const result = await bookingService.getBookings({
-      filters: {
-        roomId: { $eq: room.id },
-      },
-    });
-
-    setBookings(result.data);
-  }, [room.id]);
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      void loadBookings();
-    });
-  }, [loadBookings, bookingVersion]);
-
-  const handleRoomClick = (): void => {
+  function handleRoomClick(): void {
     toast.success(`Комната №${room.roomId}`);
-  };
-
-  const handleTimeClick = (time: string): void => {
-    toast.success(`Комната №${room.roomId}, ${time}`);
-  };
+  }
 
   return (
     <TableRow>
-      <TableCell key={room.id} className="sticky left-0 z-10 bg-background p-0">
+      <TableCell
+        className="
+          sticky
+          left-0
+          z-10
+          bg-background
+          p-0
+        "
+      >
         <button
           onClick={handleRoomClick}
           className="
@@ -51,41 +40,21 @@ export function BookingRow({ room }: { room: RoomDto }): React.JSX.Element {
             font-medium
             transition-colors
             hover:bg-muted
+            cursor-pointer
           "
         >
           № {room.roomId}
         </button>
       </TableCell>
 
-      {BOOKING_SLOTS.map((time) => {
-        const booking = bookings.find((item) => {
-          const slot = parse(time, 'HH:mm', item.start);
-
-          return isWithinInterval(slot, {
-            start: item.start,
-            end: item.finish,
-          });
-        });
-
-        return (
-          <TableCell key={time} className="p-0">
-            <button
-              onClick={() => handleTimeClick(time)}
-              className={`
-                flex
-                h-12
-                w-full
-                items-center
-                justify-center
-                text-xs
-                transition-colors
-
-                ${booking ? 'bg-primary-inverse/20 hover:bg-primary-inverse/30' : 'hover:bg-muted'}
-              `}
-            ></button>
-          </TableCell>
-        );
-      })}
+      {BOOKING_SLOTS.map((time) => (
+        <BookingSlotCell
+          key={time}
+          time={time}
+          roomId={room.roomId}
+          booking={findBookingByTime(bookings, time)}
+        />
+      ))}
     </TableRow>
   );
 }
