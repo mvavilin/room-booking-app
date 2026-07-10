@@ -8,15 +8,16 @@ import type { Pagination } from '@shared/api';
 
 export interface BookingStore {
   bookings: BookingDto[];
-  bookingsByRoom: Record<number, BookingDto[]>;
   pagination: Pagination | undefined;
   currentBooking: BookingDto | undefined;
-  loading: boolean;
 
   getBookings: (parameters?: GetBookingsParameters) => Promise<void>;
+
   getBooking: (documentId: string) => Promise<void>;
+
   createBooking: (booking: CreateBookingDto) => Promise<void>;
+
   updateBooking: (documentId: string, booking: UpdateBookingDto) => Promise<void>;
+
   deleteBooking: (documentId: string) => Promise<void>;
-  loadBookingsForRooms: (roomIds: number[], date?: Date) => Promise<void>;
 }

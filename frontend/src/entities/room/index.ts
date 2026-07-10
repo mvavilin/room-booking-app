@@ -3,4 +3,6 @@ export { roomEndpoints } from '@entities/room/api/endpoints';
 
 export { roomService } from '@entities/room/services/service';
 
+export { useRoomStore } from '@entities/room/model/store';
+
 export type * from '@entities/room/types';

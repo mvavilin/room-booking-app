@@ -10,4 +10,4 @@ export type { RoomsResponse, RoomResponse } from '@entities/room/types/response'
 
 export type { Room } from '@entities/room/types/model';
 
-// export type { RoomStore } from '@entities/room/types/store';
+export type { RoomStore } from '@entities/room/types/store';

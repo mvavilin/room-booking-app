@@ -1,46 +1,26 @@
 import { create } from 'zustand';
-import {
-  bookingService,
-  type BookingDto,
-  type BookingStore,
-  type GetBookingsParameters,
-} from '@entities/booking';
-import { startOfDay, endOfDay } from 'date-fns';
+import { bookingService, type BookingStore, type GetBookingsParameters } from '@entities/booking';
 
 export const useBookingStore = create<BookingStore>((set) => ({
   bookings: [],
-  bookingsByRoom: {},
   pagination: undefined,
   currentBooking: undefined,
-  loading: false,
 
   async getBookings(parameters?: GetBookingsParameters): Promise<void> {
-    set({ loading: true });
+    const { data, pagination } = await bookingService.getBookings(parameters);
 
-    try {
-      const { data, pagination } = await bookingService.getBookings(parameters);
-
-      set({
-        bookings: data,
-        pagination,
-      });
-    } finally {
-      set({ loading: false });
-    }
+    set({
+      bookings: data,
+      pagination,
+    });
   },
 
-  async getBooking(documentId): Promise<void> {
-    set({ loading: true });
+  async getBooking(documentId: string): Promise<void> {
+    const booking = await bookingService.getBooking(documentId);
 
-    try {
-      const booking = await bookingService.getBooking(documentId);
-
-      set({
-        currentBooking: booking,
-      });
-    } finally {
-      set({ loading: false });
-    }
+    set({
+      currentBooking: booking,
+    });
   },
 
   async createBooking(booking): Promise<void> {
@@ -51,7 +31,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
     }));
   },
 
-  async updateBooking(documentId, booking): Promise<void> {
+  async updateBooking(documentId: string, booking): Promise<void> {
     const updatedBooking = await bookingService.updateBooking(documentId, booking);
 
     set((state) => ({
@@ -61,40 +41,11 @@ export const useBookingStore = create<BookingStore>((set) => ({
     }));
   },
 
-  async deleteBooking(documentId): Promise<void> {
+  async deleteBooking(documentId: string): Promise<void> {
     await bookingService.deleteBooking(documentId);
 
     set((state) => ({
       bookings: state.bookings.filter((item) => item.documentId !== documentId),
     }));
-  },
-
-  async loadBookingsForRooms(roomIds: number[], date: Date = new Date()): Promise<void> {
-    const { data: bookings } = await bookingService.getBookings({
-      filters: {
-        roomId: {
-          roomId: { $in: roomIds },
-        },
-        start: { $lte: endOfDay(date) },
-        finish: { $gte: startOfDay(date) },
-      },
-      populate: '*',
-    });
-
-    const bookingsByRoom: Record<number, BookingDto[]> = {};
-
-    for (const roomId of roomIds) bookingsByRoom[roomId] = [];
-
-    for (const booking of bookings) {
-      const roomId = booking.roomId.roomId;
-
-      if (bookingsByRoom[roomId] === undefined) bookingsByRoom[roomId] = [];
-
-      bookingsByRoom[roomId].push(booking);
-    }
-
-    console.log(bookingsByRoom);
-
-    set({ bookingsByRoom });
   },
 }));
