@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { roomService } from '@entities/room';
-import type { RoomStore } from '@entities/room';
+import type { RoomStore, GetRoomsParameters } from '@entities/room';
 
 export const useRoomStore = create<RoomStore>((set) => ({
   rooms: [],
   pagination: undefined,
   currentRoom: undefined,
 
-  async getRooms(parameters): Promise<void> {
+  async getRooms(parameters?: GetRoomsParameters): Promise<void> {
     const { data, pagination } = await roomService.getRooms(parameters);
 
     set({

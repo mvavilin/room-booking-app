@@ -1,4 +1,4 @@
-import { Container } from '@shared/ui/container';
+import { Container } from '@shared/ui';
 import { CalendarCheck } from 'lucide-react';
 import { TypographyH1 } from '@shared/ui/typography';
 
