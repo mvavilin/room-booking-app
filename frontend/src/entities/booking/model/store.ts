@@ -1,10 +1,13 @@
 import { create } from 'zustand';
+
 import { bookingService, type BookingStore, type GetBookingsParameters } from '@entities/booking';
 
 export const useBookingStore = create<BookingStore>((set) => ({
   bookings: [],
   pagination: undefined,
   currentBooking: undefined,
+
+  bookingVersion: 0,
 
   async getBookings(parameters?: GetBookingsParameters): Promise<void> {
     const { data, pagination } = await bookingService.getBookings(parameters);
@@ -28,6 +31,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
 
     set((state) => ({
       bookings: [...state.bookings, createdBooking],
+      bookingVersion: state.bookingVersion + 1,
     }));
   },
 
@@ -38,6 +42,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
       bookings: state.bookings.map((item) =>
         item.documentId === documentId ? updatedBooking : item
       ),
+      bookingVersion: state.bookingVersion + 1,
     }));
   },
 
@@ -46,6 +51,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
 
     set((state) => ({
       bookings: state.bookings.filter((item) => item.documentId !== documentId),
+      bookingVersion: state.bookingVersion + 1,
     }));
   },
 }));

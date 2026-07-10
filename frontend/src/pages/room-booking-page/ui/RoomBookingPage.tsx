@@ -1,7 +1,7 @@
 import { Header } from '@widgets/header';
 import { Container } from '@shared/ui';
 import { TypographyH2, TypographyP } from '@shared/ui';
-import { RoomList } from '@/widgets/room-list';
+import { BookingTimeline } from '@widgets/booking-timeline';
 
 export function RoomBookingPage(): React.JSX.Element {
   return (
@@ -19,7 +19,7 @@ export function RoomBookingPage(): React.JSX.Element {
           </TypographyP>
 
           <div className="py-8">
-            <RoomList />
+            <BookingTimeline />
           </div>
         </Container>
       </main>

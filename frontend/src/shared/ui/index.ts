@@ -21,3 +21,13 @@ export {
   CardTitle,
 } from '@shared/ui/card/Card';
 export { Toaster } from '@shared/ui/sonner/Sonner';
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+} from '@shared/ui/table/Table';

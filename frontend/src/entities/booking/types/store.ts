@@ -11,6 +11,8 @@ export interface BookingStore {
   pagination: Pagination | undefined;
   currentBooking: BookingDto | undefined;
 
+  bookingVersion: number;
+
   getBookings: (parameters?: GetBookingsParameters) => Promise<void>;
 
   getBooking: (documentId: string) => Promise<void>;
