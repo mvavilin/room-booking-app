@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { BookingDialogState } from '@features/booking-editor';
+import { addSeconds } from 'date-fns';
 
 export const useBookingDialogStore = create<BookingDialogState>((set) => ({
   open: false,
@@ -30,7 +31,7 @@ export const useBookingDialogStore = create<BookingDialogState>((set) => ({
       room,
       roomNumber: room.roomId,
       start: new Date(booking.start),
-      finish: new Date(booking.finish),
+      finish: addSeconds(new Date(booking.finish), 1),
     });
   },
 

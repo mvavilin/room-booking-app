@@ -10,4 +10,4 @@ export type { BookingsResponse, BookingResponse } from '@entities/booking/types/
 
 export type { Booking, BookingStatus } from '@entities/booking/types/model';
 
-export type { BookingStore } from '@entities/booking/types/store';
+export type { BookingStore, BookingConflictResult } from '@entities/booking/types/store';

@@ -5,10 +5,11 @@ import {
   type BookingStore,
   type CreateBookingDto,
   type UpdateBookingDto,
+  type BookingConflictResult,
 } from '@entities/booking';
-import { endOfDay, startOfDay } from 'date-fns';
+import { addSeconds, endOfDay, format, startOfDay } from 'date-fns';
 
-export const useBookingStore = create<BookingStore>((set) => ({
+export const useBookingStore = create<BookingStore>((set, get) => ({
   bookingsByRoomId: {},
 
   async loadRoomBookings(roomId): Promise<void> {
@@ -37,6 +38,17 @@ export const useBookingStore = create<BookingStore>((set) => ({
   },
 
   async createBooking(data: CreateBookingDto): Promise<void> {
+    const conflict = await get().checkBookingConflict(data.roomId, data.start, data.finish);
+
+    if (conflict && conflict.conflict) {
+      throw new Error(
+        `Комната занята. Свободно с ${format(data.start, 'HH:mm')} до ${format(
+          conflict.nextAvailableTime!,
+          'HH:mm'
+        )}`
+      );
+    }
+
     const created: BookingDto = await bookingService.createBooking(data);
 
     const roomId: number = created.roomId.id;
@@ -51,6 +63,12 @@ export const useBookingStore = create<BookingStore>((set) => ({
   },
 
   async updateBooking(id: string, data: UpdateBookingDto): Promise<void> {
+    const conflict = await get().checkBookingConflict(data.roomId, data.start, data.finish);
+
+    if (conflict && conflict.conflict) {
+      throw new Error('В выбранном диапазоне времени уже есть бронирование');
+    }
+
     const updated = await bookingService.updateBooking(id, data);
 
     set((state) => {
@@ -79,12 +97,53 @@ export const useBookingStore = create<BookingStore>((set) => ({
       const bookingsByRoomId = { ...state.bookingsByRoomId };
 
       for (const roomId in bookingsByRoomId) {
-        bookingsByRoomId[roomId] = bookingsByRoomId[roomId].filter(
-          (booking) => booking.documentId !== id
-        );
+        const bookings = bookingsByRoomId[roomId];
+
+        if (bookings === undefined) continue;
+
+        bookingsByRoomId[roomId] = bookings.filter((booking) => booking.documentId !== id);
       }
 
       return { bookingsByRoomId };
     });
+  },
+
+  async checkBookingConflict(
+    roomId: number,
+    start: Date,
+    finish: Date
+  ): Promise<BookingConflictResult | undefined> {
+    const result = await bookingService.getBookings({
+      filters: {
+        roomId: {
+          $eq: roomId,
+        },
+        start: {
+          $lte: finish,
+        },
+        finish: {
+          $gte: start,
+        },
+      },
+      sort: ['start:asc'],
+    });
+
+    const bookings = result.data;
+
+    if (bookings.length === 0) {
+      return {
+        conflict: false,
+        nextAvailableTime: undefined,
+      };
+    }
+
+    if (bookings[0]) {
+      return {
+        conflict: true,
+        nextAvailableTime: addSeconds(new Date(bookings[0].start), 1),
+      };
+    }
+
+    return undefined;
   },
 }));

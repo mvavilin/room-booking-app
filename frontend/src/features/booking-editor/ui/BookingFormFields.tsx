@@ -15,6 +15,7 @@ import {
 import { format, startOfToday } from 'date-fns';
 import { TIME_OPTIONS } from '@shared/config';
 import type { BookingFormValues } from '@features/booking-editor';
+import { ru } from 'date-fns/locale';
 
 interface Properties {
   control: Control<BookingFormValues>;
@@ -32,16 +33,18 @@ export function BookingFormFields({ control }: Properties): React.JSX.Element {
           render={({ field }) => (
             <Popover>
               <PopoverTrigger
-                render={<Button id="date" variant="outline" className="justify-start" />}
+                render={<Button id="date" variant="outline" className="justify-start m-0" />}
               >
                 {field.value ? format(field.value, 'dd.MM.yyyy') : 'Выберите дату'}
               </PopoverTrigger>
 
-              <PopoverContent>
+              <PopoverContent className="w-auto">
                 <Calendar
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
+                  locale={ru}
+                  fixedWeeks
                   disabled={{
                     before: startOfToday(),
                   }}
@@ -64,7 +67,7 @@ export function BookingFormFields({ control }: Properties): React.JSX.Element {
                 <SelectValue placeholder="Выберите время начала" />
               </SelectTrigger>
 
-              <SelectContent>
+              <SelectContent className="p-2">
                 {TIME_OPTIONS.map((time) => (
                   <SelectItem key={time} value={time}>
                     {time}

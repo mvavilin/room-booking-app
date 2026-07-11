@@ -20,7 +20,6 @@ export interface GetBookingsParameters extends Omit<StrapiQueryParameters, 'filt
 }
 
 export interface CreateBookingDto {
-  bookingId: number;
   roomId: number;
   start: Date;
   finish: Date;
@@ -28,9 +27,8 @@ export interface CreateBookingDto {
 }
 
 export interface UpdateBookingDto {
-  bookingId?: number;
-  roomId?: number;
-  start?: Date;
-  finish?: Date;
+  roomId: number;
+  start: Date;
+  finish: Date;
   bookingStatus?: BookingStatus;
 }

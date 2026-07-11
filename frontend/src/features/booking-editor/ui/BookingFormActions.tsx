@@ -3,14 +3,14 @@ import type { BookingDialogMode } from '@features/booking-editor';
 
 interface Properties {
   mode: BookingDialogMode;
-  conflict: boolean;
+  loading: boolean;
   onClose(): void;
   onDelete(): void;
 }
 
 export function BookingFormActions({
   mode,
-  conflict,
+  loading,
   onClose,
   onDelete,
 }: Properties): React.JSX.Element {
@@ -18,21 +18,21 @@ export function BookingFormActions({
     <DialogFooter>
       {mode === 'edit' ? (
         <>
-          <Button type="button" variant="destructive" onClick={onDelete}>
+          <Button type="button" variant="destructive" onClick={onDelete} disabled={loading}>
             Удалить
           </Button>
 
-          <Button type="submit" disabled={conflict}>
+          <Button type="submit" disabled={loading}>
             Сохранить
           </Button>
         </>
       ) : (
         <>
-          <Button type="button" variant="outline" onClick={onClose}>
+          <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
             Отмена
           </Button>
 
-          <Button type="submit" disabled={conflict}>
+          <Button type="submit" disabled={loading}>
             Забронировать
           </Button>
         </>
