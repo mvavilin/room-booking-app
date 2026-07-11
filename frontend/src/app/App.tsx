@@ -1,10 +1,11 @@
 import { Layout, Toaster } from '@shared/ui';
-import { RoomBookingPage } from '@pages/room-booking-page';
+import { RouterProvider } from '@app/index';
 
 export default function App(): React.JSX.Element {
   return (
     <Layout>
-      <RoomBookingPage />
+      <RouterProvider />
+
       <Toaster />
     </Layout>
   );

@@ -1,8 +1,7 @@
-import { Header } from '@widgets/header';
-import { Container } from '@shared/ui';
-import { TypographyH2, TypographyP } from '@shared/ui';
-import { BookingTimeline } from '@widgets/booking-timeline';
 import { BookingDialog } from '@features/booking-editor';
+import { Header } from '@widgets/header';
+import { BookingTimeline } from '@widgets/booking-timeline';
+import { Container, TypographyH2, TypographyP } from '@shared/ui';
 
 export function RoomBookingPage(): React.JSX.Element {
   return (
@@ -11,13 +10,9 @@ export function RoomBookingPage(): React.JSX.Element {
 
       <main className="py-8">
         <Container>
-          <TypographyH2>Упростите процесс бронирования переговорных комнат</TypographyH2>
+          <TypographyH2>Бронирование переговорных комнат</TypographyH2>
 
-          <TypographyP>
-            Забудьте о трудностях с поиском свободного места для переговоров в вашем офисе.
-            Назначайте встречи всего в два клика, выбирая то помещение, которое идеально подойдет
-            для решения ваших задач.
-          </TypographyP>
+          <TypographyP>Выберите комнату и удобное время</TypographyP>
 
           <div className="py-8 flex justify-center">
             <BookingTimeline />
@@ -25,7 +20,7 @@ export function RoomBookingPage(): React.JSX.Element {
         </Container>
       </main>
 
-      <BookingDialog></BookingDialog>
+      <BookingDialog />
     </>
   );
 }

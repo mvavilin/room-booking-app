@@ -13,7 +13,7 @@ export function BookingDialog(): React.JSX.Element {
     >
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="pr-7">
             {mode === 'edit' ? 'Редактирование бронирования' : 'Новое бронирование'} комнаты №{' '}
             {roomNumber}
           </DialogTitle>

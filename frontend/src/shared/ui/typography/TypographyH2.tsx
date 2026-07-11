@@ -7,7 +7,8 @@ export function TypographyH2({ children }: PropsWithChildren): React.JSX.Element
         scroll-m-20
         border-b
         pb-2
-        text-3xl
+        text-2xl
+        md:text-3xl
         font-semibold
         tracking-tight
         first:mt-0
