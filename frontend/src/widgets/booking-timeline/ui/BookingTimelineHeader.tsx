@@ -1,4 +1,4 @@
-import { BOOKING_SLOTS } from '@shared/config';
+import { TIME_OPTIONS } from '@shared/config';
 import { TableHead, TableRow } from '@shared/ui';
 
 export function BookingTimelineHeader(): React.JSX.Element {
@@ -16,15 +16,15 @@ export function BookingTimelineHeader(): React.JSX.Element {
         Комната
       </TableHead>
 
-      {BOOKING_SLOTS.map((slot) => (
+      {TIME_OPTIONS.map((option) => (
         <TableHead
-          key={slot}
+          key={option}
           className="
             text-center
             min-w-20
           "
         >
-          {slot}
+          {option}
         </TableHead>
       ))}
     </TableRow>

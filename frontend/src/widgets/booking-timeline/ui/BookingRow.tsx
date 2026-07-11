@@ -1,7 +1,7 @@
 import { toast } from 'sonner';
 import type { RoomDto } from '@entities/room';
 import { selectBookingsByRoom, useBookingStore } from '@entities/booking';
-import { BOOKING_SLOTS } from '@shared/config';
+import { TIME_OPTIONS } from '@shared/config';
 import { TableCell, TableRow } from '@shared/ui';
 
 import { BookingSlotCell } from '@widgets/booking-timeline';
@@ -47,11 +47,11 @@ export function BookingRow({ room }: Properties): React.JSX.Element {
         </button>
       </TableCell>
 
-      {BOOKING_SLOTS.map((time) => (
+      {TIME_OPTIONS.map((time) => (
         <BookingSlotCell
           key={time}
           time={time}
-          roomId={room.roomId}
+          room={room}
           booking={findBookingByTime(bookings, time)}
         />
       ))}

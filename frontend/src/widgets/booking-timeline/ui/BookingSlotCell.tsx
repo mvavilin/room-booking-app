@@ -1,22 +1,28 @@
-import { toast } from 'sonner';
 import type { BookingDto } from '@entities/booking';
 import { TableCell } from '@shared/ui';
+import { addMinutes, parse } from 'date-fns';
+import { useBookingDialogStore } from '@features/booking-editor';
+import type { RoomDto } from '@entities/room';
 
 interface Properties {
   time: string;
+  room: RoomDto;
   booking: BookingDto | undefined;
-  roomId: number;
 }
 
-export function BookingSlotCell({ time, booking, roomId }: Properties): React.JSX.Element {
+export function BookingSlotCell({ time, room, booking }: Properties): React.JSX.Element {
+  const openCreate = useBookingDialogStore((state) => state.openCreate);
+  const openEdit = useBookingDialogStore((state) => state.openEdit);
+
   function handleClick(): void {
     if (booking) {
-      toast.warning(`Комната №${roomId}, ${time} занята`);
+      openEdit(room, booking);
+    } else {
+      const start = parse(time, 'HH:mm', new Date());
+      const finish = addMinutes(start, 30);
 
-      return;
+      openCreate(room, start, finish);
     }
-
-    toast.success(`Комната №${roomId}, ${time} свободна`);
   }
 
   return (

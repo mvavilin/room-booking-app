@@ -25,9 +25,17 @@ export const bookingApi = {
   },
 
   async createBooking(booking: CreateBookingDto): Promise<SingleResponse<BookingDto>> {
-    const { data } = await api.post<SingleResponse<BookingDto>>(bookingEndpoints.bookings, {
-      data: booking,
-    });
+    const { data } = await api.post<SingleResponse<BookingDto>>(
+      bookingEndpoints.bookings,
+      {
+        data: booking,
+      },
+      {
+        params: {
+          populate: '*',
+        },
+      }
+    );
 
     return data;
   },

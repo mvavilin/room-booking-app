@@ -1,5 +1,11 @@
 import { create } from 'zustand';
-import { bookingService, type BookingStore, type UpdateBookingDto } from '@entities/booking';
+import {
+  bookingService,
+  type BookingDto,
+  type BookingStore,
+  type CreateBookingDto,
+  type UpdateBookingDto,
+} from '@entities/booking';
 import { endOfDay, startOfDay } from 'date-fns';
 
 export const useBookingStore = create<BookingStore>((set) => ({
@@ -30,6 +36,20 @@ export const useBookingStore = create<BookingStore>((set) => ({
     }));
   },
 
+  async createBooking(data: CreateBookingDto): Promise<void> {
+    const created: BookingDto = await bookingService.createBooking(data);
+
+    const roomId: number = created.roomId.id;
+
+    set((state) => ({
+      bookingsByRoomId: {
+        ...state.bookingsByRoomId,
+
+        [roomId]: [...(state.bookingsByRoomId[roomId] ?? []), created],
+      },
+    }));
+  },
+
   async updateBooking(id: string, data: UpdateBookingDto): Promise<void> {
     const updated = await bookingService.updateBooking(id, data);
 
@@ -49,6 +69,22 @@ export const useBookingStore = create<BookingStore>((set) => ({
       return {
         bookingsByRoomId: newState,
       };
+    });
+  },
+
+  async deleteBooking(id): Promise<void> {
+    await bookingService.deleteBooking(id);
+
+    set((state) => {
+      const bookingsByRoomId = { ...state.bookingsByRoomId };
+
+      for (const roomId in bookingsByRoomId) {
+        bookingsByRoomId[roomId] = bookingsByRoomId[roomId].filter(
+          (booking) => booking.documentId !== id
+        );
+      }
+
+      return { bookingsByRoomId };
     });
   },
 }));
