@@ -1,10 +1,10 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { AppRoutes } from '@app';
 
 export function RouterProvider(): React.JSX.Element {
   return (
-    <BrowserRouter basename="/room-booking-app">
+    <HashRouter>
       <AppRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
