@@ -1,3 +1,4 @@
+// Needs refactoring
 import { create } from 'zustand';
 import { addSeconds, endOfDay, format, setHours, startOfDay } from 'date-fns';
 import {
@@ -67,6 +68,11 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
 
         [documentId]: [...(state.bookingsByRoomDocumentId[documentId] ?? []), created],
       },
+
+      weekBookingsByRoomDocumentId: {
+        ...state.weekBookingsByRoomDocumentId,
+        [documentId]: [...(state.weekBookingsByRoomDocumentId[documentId] ?? []), created],
+      },
     }));
   },
 
@@ -88,10 +94,20 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
         booking.documentId === documentId ? updated : booking
       );
 
+      const weekBookings = state.weekBookingsByRoomDocumentId[data.roomDocumentId];
+      const updatedWeekBookings = weekBookings?.map((booking) =>
+        booking.documentId === documentId ? updated : booking
+      );
+
       return {
         bookingsByRoomDocumentId: {
           ...state.bookingsByRoomDocumentId,
           [updated.roomDocumentId.documentId]: updatedRoomBookings,
+        },
+
+        weekBookingsByRoomDocumentId: {
+          ...state.weekBookingsByRoomDocumentId,
+          [data.roomDocumentId]: updatedWeekBookings ?? [],
         },
       };
     });
@@ -124,17 +140,23 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     await bookingService.deleteBooking(documentId);
 
     set((state) => {
-      const bookings: BookingDto[] | undefined = state.bookingsByRoomDocumentId[room.documentId];
-      if (bookings === undefined) return state;
-
-      const updatedBookings: BookingDto[] = bookings.filter(
-        (booking) => booking.documentId !== documentId
-      );
+      const roomId = room.documentId;
 
       return {
         bookingsByRoomDocumentId: {
           ...state.bookingsByRoomDocumentId,
-          [room.documentId]: updatedBookings,
+          [roomId]:
+            state.bookingsByRoomDocumentId[roomId]?.filter(
+              (booking) => booking.documentId !== documentId
+            ) ?? [],
+        },
+
+        weekBookingsByRoomDocumentId: {
+          ...state.weekBookingsByRoomDocumentId,
+          [roomId]:
+            state.weekBookingsByRoomDocumentId[roomId]?.filter(
+              (booking) => booking.documentId !== documentId
+            ) ?? [],
         },
       };
     });
@@ -146,7 +168,9 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     try {
       const result = await bookingService.getBookings({
         filters: {
-          roomDocumentId: { $eq: room.documentId },
+          roomDocumentId: {
+            documentId: { $eq: room.documentId },
+          },
           start: { $gte: WEEK_START, $lte: WEEK_END },
         },
         sort: ['start:asc'],

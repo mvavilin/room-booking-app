@@ -14,7 +14,6 @@ export function BookingSlotCell({
   booking,
 }: BookingSlotCellProperties): React.JSX.Element {
   const openBookingDialog = useBookingStore((state) => state.openBookingDialog);
-  // const openBookingDialog = useBookingStore((state) => state.);
   const setStartTime = useBookingStore((state) => state.setStartTime);
   const setActiveRoom = useRoomStore((state) => state.setActiveRoom);
 

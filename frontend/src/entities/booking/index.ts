@@ -11,4 +11,5 @@ export type * from '@entities/booking/types';
 export { BookingRow } from '@entities/booking/ui/BookingRow';
 export { BookingSlotCell } from '@entities/booking/ui/BookingSlotCell';
 
-export { findBookingByTime } from '@entities/booking/lib/findBookingByTime';
+export { findBookingByTime } from '@entities/booking/lib/find-booking-by-time';
+export { selectWeekBookingsByRoom } from '@entities/booking/lib/select-week-booking-by-room';

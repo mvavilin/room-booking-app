@@ -44,7 +44,7 @@ export function useBookingForm(): UseBookingFormReturn {
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
-      date: new Date(),
+      date: startTime,
       startTime: formatTimeForForm(activeBooking?.start ?? startTime),
       finishTime: formatTimeForForm(finishTime),
     },
