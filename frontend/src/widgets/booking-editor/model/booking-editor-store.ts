@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { BookingDialogState } from '@features/booking-editor';
+import type { BookingDialogState } from '@widgets/booking-editor';
 import { addSeconds } from 'date-fns';
 
 export const useBookingDialogStore = create<BookingDialogState>((set) => ({

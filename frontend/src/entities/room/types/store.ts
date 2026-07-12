@@ -1,9 +1,11 @@
 import type { GetRoomsParameters, RoomDto } from '@entities/room';
-import type { Pagination } from '@shared/api';
 
 export interface RoomStore {
   rooms: RoomDto[];
-  pagination: Pagination | undefined;
+  currentRoom: RoomDto | undefined;
+  loading: boolean;
+  error: boolean;
 
-  loadRooms: (parameters?: GetRoomsParameters) => Promise<RoomDto[]>;
+  loadRooms: (parameters: GetRoomsParameters | undefined) => Promise<RoomDto[]>;
+  loadRoom(documentId: string): Promise<RoomDto | undefined>;
 }

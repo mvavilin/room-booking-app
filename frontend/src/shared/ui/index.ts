@@ -35,3 +35,5 @@ export * from '@shared/ui/calendar/Calendar';
 export * from '@shared/ui/popover/Popover';
 
 export * from '@shared/ui/sheet/Sheet';
+
+export * from '@shared/ui/badge/Badge';

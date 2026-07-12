@@ -1,4 +1,8 @@
-export { selectBookingsByRoom } from '@entities/booking/model/selectors';
+export {
+  selectBookingsByRoom,
+  selectWeekBookingsByRoom,
+  findBookingByDateTime,
+} from '@entities/booking/model/selectors';
 
 export { bookingApi } from '@entities/booking/api/api';
 export { bookingEndpoints } from '@entities/booking/api/endpoints';

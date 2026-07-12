@@ -1,7 +1,8 @@
-import { BookingDialog } from '@features/booking-editor';
+import { BookingDialog } from '@widgets/booking-editor';
 import { Header } from '@widgets/header';
 import { BookingTimeline } from '@widgets/booking-timeline';
 import { Container, TypographyH2, TypographyP } from '@shared/ui';
+import { RoomBookingDialog } from '@/widgets/room-booking-dialog/ui/RoomBookingDialog';
 
 export function RoomBookingPage(): React.JSX.Element {
   return (
@@ -21,6 +22,7 @@ export function RoomBookingPage(): React.JSX.Element {
       </main>
 
       <BookingDialog />
+      <RoomBookingDialog />
     </>
   );
 }

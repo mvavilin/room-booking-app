@@ -7,10 +7,14 @@ import {
   type UpdateBookingDto,
   type BookingConflictResult,
 } from '@entities/booking';
-import { addSeconds, endOfDay, format, startOfDay } from 'date-fns';
+import { addSeconds, endOfDay, endOfWeek, format, startOfDay, startOfWeek } from 'date-fns';
 
 export const useBookingStore = create<BookingStore>((set, get) => ({
   bookingsByRoomId: {},
+  weekBookingsByRoomId: {},
+
+  weekLoading: false,
+  weekError: false,
 
   async loadRoomBookings(roomId): Promise<void> {
     const todayStart = startOfDay(new Date());
@@ -145,5 +149,52 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     }
 
     return undefined;
+  },
+
+  async loadRoomWeekBookings(roomId: number): Promise<void> {
+    set({
+      weekLoading: true,
+      weekError: false,
+    });
+
+    try {
+      const weekStart = startOfWeek(new Date(), {
+        weekStartsOn: 1,
+      });
+
+      const weekEnd = endOfWeek(new Date(), {
+        weekStartsOn: 1,
+      });
+
+      const result = await bookingService.getBookings({
+        filters: {
+          roomId: {
+            $eq: roomId,
+          },
+
+          start: {
+            $gte: weekStart,
+            $lte: weekEnd,
+          },
+        },
+
+        sort: ['start:asc'],
+      });
+
+      set((state) => ({
+        weekBookingsByRoomId: {
+          ...state.weekBookingsByRoomId,
+
+          [roomId]: result.data,
+        },
+
+        weekLoading: false,
+      }));
+    } catch {
+      set({
+        weekLoading: false,
+        weekError: true,
+      });
+    }
   },
 }));

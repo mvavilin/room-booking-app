@@ -49,6 +49,7 @@ export default defineConfig([
       //     skipComments: true,
       //   },
       // ],
+      'unicorn/consistent-compound-words': 'off',
       'unicorn/filename-case': 'off',
       'unicorn/prefer-node-protocol': 'error',
       'unicorn/prefer-array-some': 'error',

@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@shared/ui';
-import { useBookingDialogStore, BookingForm } from '@features/booking-editor';
+import { useBookingDialogStore, BookingForm } from '@widgets/booking-editor';
 
 export function BookingDialog(): React.JSX.Element {
   const { open, mode, roomNumber, close } = useBookingDialogStore();

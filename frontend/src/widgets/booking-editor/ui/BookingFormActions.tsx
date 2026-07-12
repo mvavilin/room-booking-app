@@ -1,5 +1,5 @@
 import { Button, DialogFooter } from '@shared/ui';
-import type { BookingDialogMode } from '@features/booking-editor';
+import type { BookingDialogMode } from '@widgets/booking-editor';
 
 interface Properties {
   mode: BookingDialogMode;

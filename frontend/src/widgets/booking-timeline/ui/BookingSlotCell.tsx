@@ -1,28 +1,39 @@
 import type { BookingDto } from '@entities/booking';
-import { TableCell } from '@shared/ui';
-import { addMinutes, parse } from 'date-fns';
-import { useBookingDialogStore } from '@features/booking-editor';
 import type { RoomDto } from '@entities/room';
 
+import { TableCell } from '@shared/ui';
+
+import { addMinutes, parse } from 'date-fns';
+
+import { useBookingDialogStore } from '@widgets/booking-editor';
+
 interface Properties {
+  date: Date;
   time: string;
   room: RoomDto;
   booking: BookingDto | undefined;
 }
 
-export function BookingSlotCell({ time, room, booking }: Properties): React.JSX.Element {
+export function BookingSlotCell({ date, time, room, booking }: Properties): React.JSX.Element {
   const openCreate = useBookingDialogStore((state) => state.openCreate);
+
   const openEdit = useBookingDialogStore((state) => state.openEdit);
 
   function handleClick(): void {
     if (booking) {
       openEdit(room, booking);
-    } else {
-      const start = parse(time, 'HH:mm', new Date());
-      const finish = addMinutes(start, 30);
-
-      openCreate(room, start, finish);
+      return;
     }
+
+    const start = parse(
+      `${date.toISOString().slice(0, 10)} ${time}`,
+      'yyyy-MM-dd HH:mm',
+      new Date()
+    );
+
+    const finish = addMinutes(start, 30);
+
+    openCreate(room, start, finish);
   }
 
   return (
@@ -38,7 +49,7 @@ export function BookingSlotCell({ time, room, booking }: Properties): React.JSX.
           text-xs
           transition-colors
 
-          ${booking ? 'bg-primary-inverse/20' : 'hover:bg-muted cursor-pointer'}
+          ${booking ? 'bg-primary-inverse/20' : 'cursor-pointer hover:bg-muted'}
         `}
       />
     </TableCell>

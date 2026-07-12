@@ -7,6 +7,10 @@ export interface BookingConflictResult {
 
 export interface BookingStore {
   bookingsByRoomId: Record<string, BookingDto[]>;
+  weekBookingsByRoomId: Record<number, BookingDto[]>;
+
+  weekLoading: boolean;
+  weekError: boolean;
 
   loadRoomBookings(roomId: number): Promise<void>;
 
@@ -19,4 +23,6 @@ export interface BookingStore {
     start: Date,
     finish: Date
   ): Promise<BookingConflictResult | undefined>;
+
+  loadRoomWeekBookings(roomId: number): Promise<void>;
 }

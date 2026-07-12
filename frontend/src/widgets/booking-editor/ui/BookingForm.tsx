@@ -6,7 +6,7 @@ import {
   BookingFormFields,
   BookingFormActions,
   useBookingDialogStore,
-} from '@features/booking-editor';
+} from '@widgets/booking-editor';
 import { parse, subSeconds, format } from 'date-fns';
 import { toast } from 'sonner';
 import { useBookingStore } from '@entities/booking';

@@ -14,7 +14,7 @@ import {
 } from '@shared/ui';
 import { format, startOfToday } from 'date-fns';
 import { TIME_OPTIONS } from '@shared/config';
-import type { BookingFormValues } from '@features/booking-editor';
+import type { BookingFormValues } from '@widgets/booking-editor';
 import { ru } from 'date-fns/locale';
 
 interface Properties {
