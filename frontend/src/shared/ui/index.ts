@@ -1,39 +1,39 @@
-export { Layout } from '@shared/ui/layuot/Layout';
+export * from '@shared/ui/Badge';
 
-export { Container } from '@shared/ui/container/Container';
+export * from '@shared/ui/Button';
 
-export * from '@shared/ui/typography';
+export * from '@shared/ui/Calendar';
 
-export * from '@shared/ui/button/Button';
+export * from '@shared/ui/Container';
 
-export { Separator } from '@shared/ui/separator/Separator';
+export * from '@shared/ui/Card';
 
-export * from '@shared/ui/item/Item';
+export * from '@shared/ui/Dialog';
 
-export * from '@shared/ui/card/Card';
+export * from '@shared/ui/Field';
 
-export { Toaster } from '@shared/ui/sonner/Sonner';
+export * from '@shared/ui/Input';
 
-export { Spinner } from '@shared/ui/spinner/Spinner';
+export * from '@shared/ui/Item';
 
-export * from '@shared/ui/table/Table';
+export * from '@shared/ui/Label';
 
-export * from '@shared/ui/dialog/Dialog';
+export * from '@shared/ui/Layout';
 
-export * from '@shared/ui/dialog/Dialog';
+export * from '@shared/ui/Main';
 
-export * from '@shared/ui/field/Field';
+export * from '@shared/ui/Popover';
 
-export { Input } from '@shared/ui/input/Input';
+export * from '@shared/ui/Select';
 
-export { Label } from '@shared/ui/label/Label';
+export * from '@shared/ui/Separator';
 
-export * from '@shared/ui/select/Select';
+export * from '@shared/ui/Sheet';
 
-export * from '@shared/ui/calendar/Calendar';
+export * from '@shared/ui/Sonner';
 
-export * from '@shared/ui/popover/Popover';
+export * from '@shared/ui/Spinner';
 
-export * from '@shared/ui/sheet/Sheet';
+export * from '@shared/ui/Table';
 
-export * from '@shared/ui/badge/Badge';
+export * from '@shared/ui/Typography';

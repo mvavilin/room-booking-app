@@ -9,14 +9,7 @@ import prettierConfig from 'eslint-config-prettier';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores([
-    'dist',
-    'build',
-    'node_modules',
-    '*.config.js',
-    '*.config.ts',
-    'src/shared/ui/**',
-  ]),
+  globalIgnores(['dist', 'build', 'node_modules', '*.config.js', '*.config.ts', 'src/shared/ui/*']),
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     extends: [

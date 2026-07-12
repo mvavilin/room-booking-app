@@ -1,8 +1,9 @@
-export { roomApi } from '@entities/room/api/api';
-export { roomEndpoints } from '@entities/room/api/endpoints';
+export { roomApi } from '@entities/room/api/room-api';
+export { ROOM_ENDPOINTS } from '@entities/room/api/endpoints';
 
-export { roomService } from '@entities/room/services/service';
+export { useRoomStore } from '@entities/room/model/room-store';
+export type { RoomStore } from '@entities/room/model/room-store.types';
 
-export { useRoomStore } from '@entities/room/model/store';
+export { roomService } from '@entities/room/services/room-service';
 
 export type * from '@entities/room/types';

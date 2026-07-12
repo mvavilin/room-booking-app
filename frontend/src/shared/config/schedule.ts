@@ -1,14 +1,14 @@
-import { addMinutes, format, setHours, startOfDay } from 'date-fns';
+import { addMinutes, setHours, startOfDay } from 'date-fns';
 
-export const START_HOUR = 9;
-export const END_HOUR = 18;
-export const STEP = 30;
+export const WORKING_DAY_START_HOUR = 9;
+const WORKING_DAY_END_HOUR = 18;
+export const BOOKING_TIME_INTERVAL_MINUTES = 30;
 
-const start = setHours(startOfDay(new Date()), START_HOUR);
+export const dayStartTime = setHours(startOfDay(new Date()), WORKING_DAY_START_HOUR);
 
-export const TIME_OPTIONS = Array.from(
+export const BOOKING_TIME_SLOTS = Array.from(
   {
-    length: ((END_HOUR - START_HOUR) * 60) / STEP,
+    length: ((WORKING_DAY_END_HOUR - WORKING_DAY_START_HOUR) * 60) / BOOKING_TIME_INTERVAL_MINUTES,
   },
-  (_, index) => format(addMinutes(start, index * STEP), 'HH:mm')
+  (_, slotIndex) => addMinutes(dayStartTime, slotIndex * BOOKING_TIME_INTERVAL_MINUTES)
 );

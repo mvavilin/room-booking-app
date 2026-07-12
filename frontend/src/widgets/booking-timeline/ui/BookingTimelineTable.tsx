@@ -1,10 +1,11 @@
-import { BookingRow } from '@widgets/booking-timeline';
+import { BookingTimelineHeader } from '@widgets/booking-timeline/ui';
+import { BookingRow } from '@entities/booking';
 import { useRoomStore } from '@entities/room';
 import { Table, TableBody, TableHeader } from '@shared/ui';
-import { BookingTimelineHeader } from '@widgets/booking-timeline';
 
 export function BookingTimelineTable(): React.JSX.Element {
   const rooms = useRoomStore((state) => state.rooms);
+  // console.log(rooms);
 
   return (
     <Table>

@@ -1,8 +1,9 @@
 import { CalendarCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+import { Navigation, MobileMenu } from '@widgets/header/ui';
+
 import { Container, TypographyH1 } from '@shared/ui';
-import { Navigation } from '@widgets/header';
-import { MobileMenu } from '@widgets/header';
 
 export function Header(): React.JSX.Element {
   return (
@@ -11,7 +12,7 @@ export function Header(): React.JSX.Element {
         <div className="flex h-16 items-center justify-between">
           <Link to="/">
             <div className="flex items-center">
-              <CalendarCheck className="mr-3 h-10 w-10" aria-hidden="true" />
+              <CalendarCheck className="mr-3 size-10" aria-hidden="true" />
 
               <TypographyH1>Room Booking</TypographyH1>
             </div>
@@ -21,7 +22,7 @@ export function Header(): React.JSX.Element {
             <Navigation />
           </div>
 
-          <div className="block md:hidden">
+          <div className="md:hidden">
             <MobileMenu />
           </div>
         </div>

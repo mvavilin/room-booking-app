@@ -1,4 +1,4 @@
-export { api } from '@shared/api/axios/axios';
+export { api } from '@shared/api/axios/instance';
 
 export { handleApiError } from '@shared/api/lib/handle-api-error';
 

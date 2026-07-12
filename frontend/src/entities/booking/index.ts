@@ -1,14 +1,14 @@
-export {
-  selectBookingsByRoom,
-  selectWeekBookingsByRoom,
-  findBookingByDateTime,
-} from '@entities/booking/model/selectors';
+export { bookingApi } from '@entities/booking/api/booking-api';
+export { BOOKING_ENDPOINTS } from '@entities/booking/api/endpoints';
 
-export { bookingApi } from '@entities/booking/api/api';
-export { bookingEndpoints } from '@entities/booking/api/endpoints';
+export { useBookingStore } from '@entities/booking/model/booking-store';
+export * from '@entities/booking/model/booking-store.types';
 
-export { bookingService } from '@entities/booking/services/service';
-
-export { useBookingStore } from '@entities/booking/model/store';
+export { bookingService } from '@entities/booking/services/booking-service';
 
 export type * from '@entities/booking/types';
+
+export { BookingRow } from '@entities/booking/ui/BookingRow';
+export { BookingSlotCell } from '@entities/booking/ui/BookingSlotCell';
+
+export { findBookingByTime } from '@entities/booking/lib/findBookingByTime';
