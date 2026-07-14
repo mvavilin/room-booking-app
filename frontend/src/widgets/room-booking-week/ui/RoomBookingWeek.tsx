@@ -18,6 +18,7 @@ import {
   findBookingByTime,
   BookingSlotCell,
   type BookingStore,
+  useBookingSync,
 } from '@entities/booking';
 import { BOOKING_TIME_SLOTS } from '@shared/config';
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shared/ui';
@@ -47,9 +48,16 @@ export function RoomBookingWeek({ room }: RoomBookingWeekProperties): React.JSX.
 
   useEffect(() => {
     if (room) {
-      void loadRoomWeekBookings(room);
+      void loadRoomWeekBookings(room.documentId);
     }
   }, [room, weekStart, loadRoomWeekBookings]);
+
+  useBookingSync({
+    roomDocumentId: room.documentId,
+    onChanged: async () => {
+      await loadRoomWeekBookings(room.documentId);
+    },
+  });
 
   if (loading) {
     return (
@@ -71,7 +79,7 @@ export function RoomBookingWeek({ room }: RoomBookingWeekProperties): React.JSX.
           <Button
             variant="outline"
             onClick={() => {
-              if (room) loadRoomWeekBookings(room);
+              if (room) loadRoomWeekBookings(room.documentId);
             }}
           >
             Повторить

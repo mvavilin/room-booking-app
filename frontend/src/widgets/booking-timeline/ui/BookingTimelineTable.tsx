@@ -5,7 +5,6 @@ import { Table, TableBody, TableHeader } from '@shared/ui';
 
 export function BookingTimelineTable(): React.JSX.Element {
   const rooms = useRoomStore((state) => state.rooms);
-  // console.log(rooms);
 
   return (
     <Table>

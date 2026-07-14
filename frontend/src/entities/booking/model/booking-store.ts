@@ -8,6 +8,8 @@ import {
   type CreateBookingDto,
   type UpdateBookingDto,
   type BookingConflictResult,
+  bookingChannel,
+  BookingSyncEvent,
 } from '@entities/booking';
 import { WEEK_END, WEEK_START } from '@shared/constants';
 import { WORKING_DAY_START_HOUR } from '@shared/config/schedule';
@@ -23,11 +25,11 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   activeBooking: undefined,
   startTime: setHours(new Date(), WORKING_DAY_START_HOUR),
 
-  async loadRoomBookings(room): Promise<void> {
+  async loadRoomBookings(roomDocumentId): Promise<void> {
     const result = await bookingService.getBookings({
       filters: {
         roomDocumentId: {
-          documentId: { $eq: room.documentId },
+          documentId: { $eq: roomDocumentId },
         },
         start: {
           $gte: startOfDay(new Date()),
@@ -39,7 +41,7 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     set((state) => ({
       bookingsByRoomDocumentId: {
         ...state.bookingsByRoomDocumentId,
-        [room.documentId]: result.data,
+        [roomDocumentId]: result.data,
       },
     }));
   },
@@ -74,6 +76,11 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
         [documentId]: [...(state.weekBookingsByRoomDocumentId[documentId] ?? []), created],
       },
     }));
+
+    bookingChannel.postMessage({
+      type: BookingSyncEvent.Changed,
+      roomDocumentId: documentId,
+    });
   },
 
   async updateBooking(documentId: string, data: UpdateBookingDto): Promise<void> {
@@ -110,6 +117,11 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
           [data.roomDocumentId]: updatedWeekBookings ?? [],
         },
       };
+    });
+
+    bookingChannel.postMessage({
+      type: BookingSyncEvent.Changed,
+      roomDocumentId: updated.roomDocumentId.documentId,
     });
   },
 
@@ -160,16 +172,21 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
         },
       };
     });
+
+    bookingChannel.postMessage({
+      type: BookingSyncEvent.Changed,
+      roomDocumentId: room.documentId,
+    });
   },
 
-  async loadRoomWeekBookings(room): Promise<void> {
+  async loadRoomWeekBookings(roomDocumentId): Promise<void> {
     set({ weekBookingsByRoomDocumentIdLoading: true, weekBookingsByRoomDocumentIdError: false });
 
     try {
       const result = await bookingService.getBookings({
         filters: {
           roomDocumentId: {
-            documentId: { $eq: room.documentId },
+            documentId: { $eq: roomDocumentId },
           },
           start: { $gte: WEEK_START, $lte: WEEK_END },
         },
@@ -179,7 +196,7 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
       set((state) => ({
         weekBookingsByRoomDocumentId: {
           ...state.weekBookingsByRoomDocumentId,
-          [room.documentId]: result.data,
+          [roomDocumentId]: result.data,
         },
         weekBookingsByRoomDocumentIdLoading: false,
       }));
