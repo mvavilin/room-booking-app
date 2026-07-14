@@ -1,7 +1,7 @@
 import { Button, DialogFooter } from '@shared/ui';
 import type { BookingDialogMode } from '@entities/booking';
 
-interface BookingFormActionsProperties {
+interface Properties {
   mode: BookingDialogMode;
   loading: boolean;
   onClose(): void;
@@ -13,7 +13,7 @@ export function BookingFormActions({
   loading,
   onClose,
   onDelete,
-}: BookingFormActionsProperties): React.JSX.Element {
+}: Properties): React.JSX.Element {
   return (
     <DialogFooter>
       {mode === 'edit' ? (

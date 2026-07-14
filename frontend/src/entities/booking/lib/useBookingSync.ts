@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 
 import { bookingChannel, BookingSyncEvent, type BookingChangedPayload } from '@entities/booking';
 
-interface UseBookingSyncParameters {
+interface Parameters {
   roomDocumentId?: string;
   onChanged: () => Promise<void> | void;
 }
 
-export function useBookingSync({ roomDocumentId, onChanged }: UseBookingSyncParameters): void {
+export function useBookingSync({ roomDocumentId, onChanged }: Parameters): void {
   useEffect(() => {
     const handler = async (event: MessageEvent<BookingChangedPayload>): Promise<void> => {
       if (event.data.type !== BookingSyncEvent.Changed) {

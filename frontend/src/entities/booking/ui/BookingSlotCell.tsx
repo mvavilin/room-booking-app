@@ -2,17 +2,13 @@ import { useRoomStore, type RoomDto } from '@entities/room';
 import { useBookingStore, type BookingDto } from '@entities/booking';
 import { Button, TableCell } from '@shared/ui';
 
-interface BookingSlotCellProperties {
+interface Properties {
   date: Date;
   room: RoomDto;
   booking: BookingDto | undefined;
 }
 
-export function BookingSlotCell({
-  date,
-  room,
-  booking,
-}: BookingSlotCellProperties): React.JSX.Element {
+export function BookingSlotCell({ date, room, booking }: Properties): React.JSX.Element {
   const openBookingDialog = useBookingStore((state) => state.openBookingDialog);
   const setStartTime = useBookingStore((state) => state.setStartTime);
   const setActiveRoom = useRoomStore((state) => state.setActiveRoom);

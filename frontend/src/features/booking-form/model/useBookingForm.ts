@@ -16,7 +16,7 @@ import {
   deleteBookingAction,
 } from '@features/booking-form';
 
-interface UseBookingFormReturn {
+interface Return {
   form: UseFormReturn<BookingFormValues>;
   mode: BookingDialogMode;
   loading: boolean;
@@ -25,7 +25,7 @@ interface UseBookingFormReturn {
   close: () => void;
 }
 
-export function useBookingForm(): UseBookingFormReturn {
+export function useBookingForm(): Return {
   const mode = useBookingStore((state) => state.bookingDialogMode);
   const close = useBookingStore((state) => state.closeBookingDialog);
 

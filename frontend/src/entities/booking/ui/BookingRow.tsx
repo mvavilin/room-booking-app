@@ -12,11 +12,11 @@ import { BOOKING_TIME_SLOTS } from '@shared/config';
 import { Button, TableCell, TableRow } from '@shared/ui';
 import { format } from 'date-fns';
 
-interface BookingRowProperties {
+interface Properties {
   room: RoomDto;
 }
 
-export function BookingRow({ room }: BookingRowProperties): React.JSX.Element {
+export function BookingRow({ room }: Properties): React.JSX.Element {
   const navigate = useNavigate();
 
   const bookings: BookingDto[] =

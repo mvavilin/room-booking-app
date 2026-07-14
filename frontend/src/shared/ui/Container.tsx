@@ -1,11 +1,11 @@
 import { type PropsWithChildren } from 'react';
 import { cn } from '@shared/lib';
 
-interface ContainerProperties extends PropsWithChildren {
+interface Properties extends PropsWithChildren {
   className?: string;
 }
 
-export function Container({ children, className }: ContainerProperties): React.JSX.Element {
+export function Container({ children, className }: Properties): React.JSX.Element {
   return (
     <div
       className={cn(

@@ -13,7 +13,7 @@ export { BookingSlotCell } from '@entities/booking/ui/BookingSlotCell';
 
 export { findBookingByTime } from '@entities/booking/lib/find-booking-by-time';
 export { selectWeekBookingsByRoom } from '@entities/booking/lib/select-week-booking-by-room';
-export { useBookingSync } from '@entities/booking/lib/use-booking-sync';
+export { useBookingSync } from '@entities/booking/lib/useBookingSync';
 
 export { bookingChannel } from '@entities/booking/lib/booking-sync/channel';
 export {
