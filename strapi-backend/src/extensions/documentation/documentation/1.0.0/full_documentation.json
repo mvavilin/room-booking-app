@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-07-10T10:05:33.039Z"
+    "x-generation-date": "2026-07-13T11:49:17.400Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -2530,17 +2530,13 @@
         "properties": {
           "data": {
             "required": [
-              "bookingId",
               "start",
               "finish",
               "bookingStatus"
             ],
             "type": "object",
             "properties": {
-              "bookingId": {
-                "type": "integer"
-              },
-              "roomId": {
+              "roomDocumentId": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -2625,7 +2621,6 @@
       "Booking": {
         "type": "object",
         "required": [
-          "bookingId",
           "start",
           "finish",
           "bookingStatus"
@@ -2644,10 +2639,7 @@
           "documentId": {
             "type": "string"
           },
-          "bookingId": {
-            "type": "integer"
-          },
-          "roomId": {
+          "roomDocumentId": {
             "type": "object",
             "properties": {
               "id": {
@@ -2663,7 +2655,7 @@
               "documentId": {
                 "type": "string"
               },
-              "roomId": {
+              "roomNumber": {
                 "type": "integer"
               },
               "capacity": {
@@ -3477,10 +3469,7 @@
                 "documentId": {
                   "type": "string"
                 },
-                "bookingId": {
-                  "type": "integer"
-                },
-                "roomId": {
+                "roomDocumentId": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -3609,13 +3598,12 @@
         "properties": {
           "data": {
             "required": [
-              "roomId",
-              "capacity",
-              "description"
+              "roomNumber",
+              "capacity"
             ],
             "type": "object",
             "properties": {
-              "roomId": {
+              "roomNumber": {
                 "type": "integer"
               },
               "capacity": {
@@ -3683,9 +3671,8 @@
       "Room": {
         "type": "object",
         "required": [
-          "roomId",
-          "capacity",
-          "description"
+          "roomNumber",
+          "capacity"
         ],
         "properties": {
           "id": {
@@ -3701,7 +3688,7 @@
           "documentId": {
             "type": "string"
           },
-          "roomId": {
+          "roomNumber": {
             "type": "integer"
           },
           "capacity": {
@@ -4426,7 +4413,7 @@
                 "documentId": {
                   "type": "string"
                 },
-                "roomId": {
+                "roomNumber": {
                   "type": "integer"
                 },
                 "capacity": {

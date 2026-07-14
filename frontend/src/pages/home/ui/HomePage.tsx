@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Header } from '@widgets/header';
 
 import { Button, Container, Main, TypographyH2, TypographyP } from '@shared/ui';
+import { DemoVideo } from '@/shared/ui/demo-video/DemoVideo';
 
 export function HomePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export function HomePage(): React.JSX.Element {
           <div className="mt-6">
             <Button onClick={handleOpenBooking}>Открыть бронирования</Button>
           </div>
+
+          <DemoVideo />
         </Container>
       </Main>
     </>

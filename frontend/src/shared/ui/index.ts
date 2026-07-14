@@ -1,3 +1,5 @@
+export * from '@shared/ui/AspectRatio';
+
 export * from '@shared/ui/Badge';
 
 export * from '@shared/ui/Button';

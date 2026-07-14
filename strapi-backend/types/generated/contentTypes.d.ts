@@ -451,9 +451,6 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    bookingId: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
     bookingStatus: Schema.Attribute.Enumeration<['confirmed', 'canceled']> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -467,7 +464,7 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    roomId: Schema.Attribute.Relation<'oneToOne', 'api::room.room'>;
+    roomDocumentId: Schema.Attribute.Relation<'oneToOne', 'api::room.room'>;
     start: Schema.Attribute.DateTime & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -490,12 +487,12 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::room.room'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    roomId: Schema.Attribute.Integer &
+    roomNumber: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;

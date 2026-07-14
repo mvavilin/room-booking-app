@@ -11,12 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "bookingId": {
-      "type": "integer",
-      "required": true,
-      "unique": true
-    },
-    "roomId": {
+    "roomDocumentId": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::room.room"
